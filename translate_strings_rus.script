@@ -1,0 +1,21 @@
+
+function change_xml_text(xml_obj, string_id, new_text)
+	local res = xml_obj:query(string.format("string[id=%s] > text", string_id))
+		if res[1] then
+			local el = res[1]
+			local el_text = xml_obj:getText(el)
+			if el_text then 
+				xml_obj:setText(el, new_text)
+			end
+		end
+	end
+
+function on_xml_read()
+    RegisterScriptCallback("on_xml_read", function(xml_file_name, xml_obj)
+        if xml_file_name == [[text\eng\ui_st_mcm.xml]] then
+			change_xml_text(xml_obj, "ui_mcm_desc_mcm", "!!!Добро пожаловать в меню конфигурации аномального мода. Сам по себе MCM ничего не делает. MCM предоставляет место для других модов / надстроек для отображения пользовательского интерфейса настроек.\nСлева вы увидите список модов / дополнений, которые используют MCM для этого")
+		end
+
+	end)
+end
+
